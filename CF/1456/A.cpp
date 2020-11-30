@@ -13,7 +13,16 @@ mt19937 rng((uint64_t)chrono::steady_clock::now().time_since_epoch().count());
 
 
 void solve() {
-  
+  int n, p, k, x, y;
+  string s;
+  cin >> n >> p >> k >> s >> x >> y;
+  vector <int> dp(n, 0);
+  int ans = n * x;
+  for (int i = n - 1; i >= p - 1; --i) {
+    dp[i] = ((i + k) < n? dp[i + k]: 0) + (s[i] == '1'? 0: x);
+    ans = min(ans, dp[i] + (i - p + 1) * y);
+  }
+  cout << ans << "\n";
 }
  
 int32_t main() {
